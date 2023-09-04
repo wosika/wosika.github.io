@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/main_page.dart';
+import 'package:dream_come_true/main_page.dart';
 
 
 void main() {

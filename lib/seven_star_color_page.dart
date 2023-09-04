@@ -1,7 +1,6 @@
 //双色球页面
 import 'package:flutter/material.dart';
-import 'package:untitled/love_and_peace.dart';
-import 'package:untitled/seven_lucky_number.dart';
+import 'package:dream_come_true/seven_lucky_number.dart';
 
 class SevenStarColorPage extends StatefulWidget {
   const SevenStarColorPage({Key? key}) : super(key: key);

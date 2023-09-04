@@ -1,6 +1,6 @@
 //双色球页面
 import 'package:flutter/material.dart';
-import 'package:untitled/love_and_peace.dart';
+import 'package:dream_come_true/love_and_peace.dart';
 
 class DoubleColorBallPage extends StatefulWidget {
   const DoubleColorBallPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/double_color_ball_page.dart';
-import 'package:untitled/seven_star_color_page.dart';
+import 'package:dream_come_true/double_color_ball_page.dart';
+import 'package:dream_come_true/seven_star_color_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
