@@ -12,10 +12,10 @@ String getSevenStarColor(int luckyNum){
   List<int> luckNumberList = [];
 
   var random = Random();
-  var num = random.nextInt(101);
+  var num = random.nextInt(1001);
   print("当前幸运数$luckyNum");
   while (luckyNum != num) {
-    num = random.nextInt(101);
+    num = random.nextInt(1001);
     print("当前随机数$num");
     luckNumberList.clear();
     _getIt(luckNumberList, 9, 7);

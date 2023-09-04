@@ -38,7 +38,7 @@ class _SevenStarColorPageState extends State<SevenStarColorPage> {
             controller: luckyNumberController,
 
             decoration: const InputDecoration(
-              hintText: "请输入幸运数字",
+              hintText: "请输入幸运数字(0-1000)",
             ),
           ),
 
@@ -53,7 +53,15 @@ class _SevenStarColorPageState extends State<SevenStarColorPage> {
               if (luckyNumberController.text.isEmpty) {
                 //提示
                 ScaffoldMessenger.of(context)
-                    .showSnackBar(const SnackBar(content: Text("请输入幸运数字")));
+                    .showSnackBar(const SnackBar(content: Text("请输入幸运数字哦")));
+                return;
+              }
+              //如果幸运数超过0-1000
+              if (int.parse(luckyNumberController.text) < 0 ||
+                  int.parse(luckyNumberController.text) > 1000) {
+                //提示
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("请输入0-1000之间的幸运数哦")));
                 return;
               }
               setState(() {
