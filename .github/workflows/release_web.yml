@@ -1,0 +1,64 @@
+name: build web
+on:
+  # Enable manual run
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Tag to create (e.g. v2.10.0). Must include 'v' and must match pubspec"
+        required: true
+        default: "v2.10.0"
+        type: string
+  push:
+    branches:
+      - 'main'
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+  #开始build
+  build:
+    #定义变量
+    #    env:
+    #      RUNNER: 1
+    name: Create ${{ matrix.target }} build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        target: [ Web ]
+        include:
+          - os: ubuntu-latest # Catalina
+            target: Web
+      fail-fast: false
+    steps:
+      # 准备flutter环境
+      - name: Clone Flutter repository with master channel
+        uses: subosito/flutter-action@b1d33bca250325e536d154a6ae802a463c52bc57
+        with:
+          channel: 'stable'
+          flutter-version: '3.10.2'
+          cache: true
+
+      - run: flutter doctor -v
+
+      # Checkout gallery code and get packages.
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - run: flutter pub get
+
+
+      #构建网页
+      - name: Build android
+        run: flutter build web -v
+
+      #上传到github page
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
+
+
+
+
+
+
