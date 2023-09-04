@@ -15,13 +15,13 @@ void main() async {
   int redNum = 7;
   int blueNum = 2;
 
-  var luckyNum = 5;
+  var luckyNum = 72;
   var count = 0;
   var trashCount = 0;
   Random random = Random.secure();
 
   var num = random.nextInt(limit);
-  var isRunTrashRule = false;
+  var isRunTrashRule = true;
 
   // var random3 = Random();
   // var num3 = random.nextInt(1001);
