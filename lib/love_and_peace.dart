@@ -10,15 +10,15 @@ List<int> redList = [];
 List<int> blueList = [];
 
 void main() async {
-  getDoubleColorBallResult(72, true);
+  getDoubleColorBallResult(72, true,7,2);
 }
 
 //获取结果
 
-String getDoubleColorBallResult(int luckyNum, bool isRunTrashRule ) {
+String getDoubleColorBallResult(int luckyNum, bool isRunTrashRule ,int redNum, int blueNum) {
   int limit = 1001;
-  int redNum = 7;
-  int blueNum = 2;
+  // int redNum = 7;
+  // int blueNum = 2;
   var count = 0;
   var trashCount = 0;
   Random random = Random.secure();

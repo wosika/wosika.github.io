@@ -16,11 +16,20 @@ class _DoubleColorBallPageState extends State<DoubleColorBallPage> {
   //过滤次数 textController
   TextEditingController filterCountController = TextEditingController();
 
+  //篮球数量
+  TextEditingController blueBallCountController = TextEditingController();
+
+  //红球数量
+  TextEditingController redBallCountController = TextEditingController();
+
   //生成结果
   String result = "";
 
   //是否过滤
   bool isFilter = false;
+
+  //是否复式
+  bool isDouble = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +64,61 @@ class _DoubleColorBallPageState extends State<DoubleColorBallPage> {
                   })
             ],
           ),
+
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              const Text("是否复式"),
+              Switch(
+                  value: isDouble,
+                  onChanged: (value) {
+                    setState(() {
+                      isDouble = value;
+                    });
+                  })
+            ],
+          ),
+
+          Visibility(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //输入复式 几+几
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 150,
+                        child: TextField(
+                          //只允许输入数字
+                          textAlign: TextAlign.center,
+                          controller: redBallCountController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            hintText: "请输入红球数量",
+                          ),
+                        ),
+                      ),
+                      const Text(" + "),
+                      SizedBox(
+                          width: 150,
+                          child: TextField(
+                            controller: blueBallCountController,
+                            textAlign: TextAlign.center,
+                            //只允许输入数字
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              hintText: "请输入蓝球数量",
+                            ),
+                          )),
+                    ],
+                  )
+                ],
+              ),
+              visible: isDouble),
           //间距
           const SizedBox(
             height: 20,
@@ -68,8 +132,31 @@ class _DoubleColorBallPageState extends State<DoubleColorBallPage> {
                     .showSnackBar(const SnackBar(content: Text("请输入幸运数字")));
                 return;
               }
+
+              var redNum = redBallCountController.text.isEmpty
+                  ? 0
+                  : int.parse(redBallCountController.text);
+              var blueNum = blueBallCountController.text.isEmpty
+                  ? 0
+                  : int.parse(blueBallCountController.text);
+
+              if (isDouble) {
+                if (redNum == 0 || blueNum == 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("请输入红球和蓝球数量")));
+                  return;
+                }
+              } else {
+                redNum = 6;
+                blueNum = 1;
+              }
+
               setState(() {
-                result = getDoubleColorBallResult(int.parse(luckyNumberController.text), isFilter);
+                result = getDoubleColorBallResult(
+                    int.parse(luckyNumberController.text),
+                    isFilter,
+                    redNum,
+                    blueNum);
               });
             },
             child: const Text("生成"),
