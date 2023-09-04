@@ -1,8 +1,3 @@
-
-
-
-
-
 import 'dart:math';
 
 void main() async {

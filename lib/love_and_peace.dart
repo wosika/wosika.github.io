@@ -10,30 +10,26 @@ List<int> redList = [];
 List<int> blueList = [];
 
 void main() async {
-  int limit = 1001;
+  getDoubleColorBallResult(72, true);
+}
 
+//获取结果
+
+String getDoubleColorBallResult(int luckyNum, bool isRunTrashRule ) {
+  int limit = 1001;
   int redNum = 7;
   int blueNum = 2;
-
-  var luckyNum = 72;
   var count = 0;
   var trashCount = 0;
   Random random = Random.secure();
-
   var num = random.nextInt(limit);
-  var isRunTrashRule = true;
-
-  // var random3 = Random();
-  // var num3 = random.nextInt(1001);
-
-//  print("当前幸运数$luckyNum");
 
   if (isRunTrashRule) {
     do {
       num = random.nextInt(limit);
       print("当前随机数1 $num");
-      getIt(trashRedList, 33, redNum, random);
-      getIt(trashBlueList, 16, blueNum, random);
+      _getIt(trashRedList, 33, redNum, random);
+      _getIt(trashBlueList, 16, blueNum, random);
       trashCount++;
     } while (num != luckyNum);
   }
@@ -43,23 +39,37 @@ void main() async {
     print("当前随机数1 $num");
     redList.clear();
     blueList.clear();
-    getIt(redList, 33, redNum, random, trashList: trashRedList);
-    getIt(blueList, 16, blueNum, random, trashList: trashBlueList);
+    _getIt(redList, 33, redNum, random, trashList: trashRedList);
+    _getIt(blueList, 16, blueNum, random, trashList: trashBlueList);
     count++;
   } while (num != luckyNum);
+
+
+  var stringBuffer = StringBuffer();
   if (isRunTrashRule) {
+    stringBuffer.writeln("计算垃圾次数：$trashCount");
+    stringBuffer.writeln("垃圾红球：$trashRedList");
+    stringBuffer.writeln("垃圾蓝球：$trashBlueList");
+    stringBuffer.writeln("---------------------");
     print("计算垃圾次数：$trashCount");
     print("垃圾红球：$trashRedList");
     print("垃圾蓝球：$trashBlueList");
     print("---------------------");
   }
 
+  stringBuffer.writeln("计算次数：$count");
+  stringBuffer.writeln("红球：$redList");
+  stringBuffer.writeln("蓝球：$blueList");
   print("计算次数：$count");
   print("红球：$redList");
   print("蓝球：$blueList");
+  return stringBuffer.toString();
+
+
 }
 
-void getIt(List<int> list, int max, int count, random, {List<int>? trashList}) {
+void _getIt(List<int> list, int max, int count, random,
+    {List<int>? trashList}) {
   //var random = Random.secure();
   while (list.length != count) {
     int randomNumber = random.nextInt(max) + 1;
@@ -73,7 +83,7 @@ void getIt(List<int> list, int max, int count, random, {List<int>? trashList}) {
   }
   list.sort();
 }
-
-void sort(List<int> list) {
-  list.sort((a, b) => a - b);
-}
+//
+// void _sort(List<int> list) {
+//   list.sort((a, b) => a - b);
+// }

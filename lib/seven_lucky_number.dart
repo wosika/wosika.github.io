@@ -2,11 +2,14 @@
 import 'dart:math';
 
 void main() async {
+
+  getSevenStarColor(52);
+
+}
+
+
+String getSevenStarColor(int luckyNum){
   List<int> luckNumberList = [];
-
-
-
-  var luckyNum = 52;
 
   var random = Random();
   var num = random.nextInt(101);
@@ -15,21 +18,18 @@ void main() async {
     num = random.nextInt(101);
     print("当前随机数$num");
     luckNumberList.clear();
-
-    getIt(luckNumberList, 9, 4);
+    _getIt(luckNumberList, 9, 7);
 
   }
 
+  _getIt(luckNumberList, 9, 7);
 
-  getIt(luckNumberList, 9, 4);
-
-  print("七星彩前四位：$luckNumberList");
-
-
+  print("结果：$luckNumberList");
+  return "结果：$luckNumberList";
 
 }
 
-void getIt(List<int> list, int max, int count) {
+void _getIt(List<int> list, int max, int count) {
   var random = Random();
   while (list.length != count) {
     int randomNumber = random.nextInt(max+1);
@@ -37,6 +37,6 @@ void getIt(List<int> list, int max, int count) {
   }
 }
 
-void sort(List<int> list) {
+void _sort(List<int> list) {
   list.sort((a, b) => a - b);
 }
