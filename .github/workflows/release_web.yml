@@ -1,67 +1,37 @@
-name: build web
+name: GitHub Pages
+
 on:
-  # Enable manual run
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Tag to create (e.g. v2.10.0). Must include 'v' and must match pubspec"
-        required: true
-        default: "v2.10.0"
-        type: string
   push:
     branches:
-      - 'main'
-# Declare default permissions as read only.
-permissions: read-all
+      - main
+  pull_request:
 
 jobs:
-  #开始build
-  build:
-    #定义变量
-    #    env:
-    #      RUNNER: 1
-    name: Create ${{ matrix.target }} build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        target: [ Web ]
-        include:
-          - os: ubuntu-latest # Catalina
-            target: Web
-      fail-fast: false
+  deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
     steps:
-      # 准备flutter环境
-      - name: Clone Flutter repository with master channel
-        uses: subosito/flutter-action@b1d33bca250325e536d154a6ae802a463c52bc57
-        with:
-          channel: 'stable'
-          flutter-version: '3.10.2'
-          cache: true
+      - uses: actions/checkout@v3
 
-      - run: flutter doctor -v
+      - name: Setup Flutter
+        run: |
+          git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
+          echo "${GITHUB_WORKSPACE}/_flutter/bin" >> ${GITHUB_PATH}
 
-      # Checkout gallery code and get packages.
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - run: flutter pub get
+      - name: Install
+        run: |
+          flutter config --enable-web
+          flutter pub get
 
+      - name: Build
+        run: flutter build web
 
-      #构建网页
-      - name: Build android
-        run: flutter build web -v
-
-      #上传到github page
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
-          publish_branch: gh-pages
-          full_commit_message: ${{ github.event.head_commit.message }}
-
-
-
-
-
-
-
