@@ -74,7 +74,7 @@ class _SevenStarColorPageState extends State<SevenStarColorPage> {
             height: 20,
           ),
           //生成结果
-          Text(result),
+          SelectableText(result),
         ]),
       ),
     );
