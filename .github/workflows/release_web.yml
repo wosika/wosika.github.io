@@ -27,14 +27,14 @@ jobs:
           flutter pub get
 
       - name: Build
-        run: flutter build web
+        run: flutter build web --base-href=/dream_come_true/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
         with:
-         # github_token: ${{ secrets.GITHUB_TOKEN }}
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          external_repository: wosika/wosika.github.io
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          #deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+         # external_repository: wosika/wosika.github.io
          # publish_branch: your-branch  # default: gh-pages
           publish_dir: ./build/web
