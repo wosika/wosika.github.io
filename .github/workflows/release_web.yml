@@ -16,10 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Flutter
-        run: |
-          git clone https://github.com/flutter/flutter.git --depth 1 -b beta _flutter
-          echo "${GITHUB_WORKSPACE}/_flutter/bin" >> ${GITHUB_PATH}
+      - name: Clone Flutter repository with master channel
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+         # flutter-version: '3.10.2'
+          cache: true
 
       - name: Install
         run: |
@@ -27,7 +29,7 @@ jobs:
           flutter pub get
 
       - name: Build
-        run: flutter build web --base-href=/wosika.github.io/
+        run: flutter build web
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
