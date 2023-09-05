@@ -174,7 +174,7 @@ class _DoubleColorBallPageState extends State<DoubleColorBallPage> {
             height: 20,
           ),
           //生成结果
-          SelectableText(result),
+          SelectionArea(child: Text(result)),
         ]),
       ),
     );
