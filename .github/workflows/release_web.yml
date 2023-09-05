@@ -40,6 +40,6 @@ jobs:
           #deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
          # external_repository: wosika/wosika.github.io
          # publish_branch: your-branch  # default: gh-pages
+          publish_branch: lucky
           publish_dir: ./build/web
-
-        #  destination_dir: lucky
+          destination_dir: lucky
