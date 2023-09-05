@@ -40,4 +40,5 @@ jobs:
          # external_repository: wosika/wosika.github.io
          # publish_branch: your-branch  # default: gh-pages
           publish_dir: ./build/web
+          
           destination_dir: lucky
