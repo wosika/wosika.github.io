@@ -29,7 +29,8 @@ jobs:
           flutter pub get
 
       - name: Build
-        run: flutter build web --base-href=/lucky/
+        #run: flutter build web --base-href=/lucky/
+        run: flutter build web
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -40,5 +41,5 @@ jobs:
          # external_repository: wosika/wosika.github.io
          # publish_branch: your-branch  # default: gh-pages
           publish_dir: ./build/web
-          
-          destination_dir: lucky
+
+        #  destination_dir: lucky
